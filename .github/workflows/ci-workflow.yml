@@ -11,18 +11,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Make
-        run: sudo apt-get install make
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Укажите нужную версию Node.js
 
-      - name: Setup project
-        run: make setup
+      - name: Install dependencies
+        run: npm install
 
       - name: Run tests
-        run: make test
+        run: npm test
 
       - name: Run linter
-        run: make lint
+        run: npm run lint  # Убедитесь, что у вас есть соответствующая команда в package.json
+
+      - name: Hello from Hexlet
+        uses: hexlet-components/hello-from-hexlet-action@release
